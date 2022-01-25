@@ -9,7 +9,7 @@ def DockerTag() {
 pipeline {
   agent { label 'master' }
     tools {
-      maven 'Maven'
+      maven 'Maven3'
       jdk 'JAVA_HOME'
     }
   options { 
