@@ -9,7 +9,7 @@ def DockerTag() {
 pipeline {
   agent { label 'master' }
     tools {
-      maven 'Maven3'
+      maven 'Maven'
       jdk 'JAVA_HOME'
     }
   options { 
@@ -27,6 +27,7 @@ pipeline {
   stages {
     stage('Artifactory_Configuration') {
       steps {
+// 	      sh 'mvn dependency:purge-local-repository'
         script {
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
@@ -38,9 +39,10 @@ pipeline {
     }
     stage('Execute_Maven') {
 	  steps {
-	    script {
-		  rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
-        }			                      
+		  sh 'mvn clean install'
+// 	    script {
+// 		  rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+//         }			                      
       }
     }	
     stage('War rename') {
@@ -58,7 +60,13 @@ pipeline {
         }
       }	
     }	
-	
+	stage('Quality_Gate') {
+	  steps {
+	    timeout(time: 3, unit: 'MINUTES') {
+		  waitForQualityGate abortPipeline: true
+        }
+      }
+    }
   stage('Build Docker Image'){
     steps{
       sh 'docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
