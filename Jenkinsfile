@@ -71,6 +71,18 @@ stage('Run Docker Container'){
       sh 'sudo docker run -dit sourav/jenkinsdeploy:${DOCKER_TAG} '
     }
   }
+stage('Artifact'){
+    steps{
+      rtServer (
+    id: 'example-repo-local',
+    url: 'http://54.173.117.85:8082/artifactory',
+    // If you're using username and password:
+    username: 'admin',
+    password: 'Password123',
+    timeout: 300
+)
+    }
+  }
      	  
   stage('test'){
       steps {
