@@ -65,21 +65,12 @@ pipeline {
     steps{
       sh 'sudo docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
     }
-  }	  	 
-  stage('Docker Container'){
+  }
+stage('Build Docker Image'){
     steps{
-      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
-	  sh 'docker login -u ${docker_user} -p ${docker_pass}'
-      	  sh 'docker push dileep95/ansibledeploy:${DOCKER_TAG}'
-	  }
+      sh 'sudo docker run -dit dileep95/ansibledeploy:${DOCKER_TAG} '
     }
- }
-    stage('Ansible Playbook'){
-      steps {
-       //ansiblePlaybook credentialsId: 'ans-server', inventory: 'inventory', playbook: 'ansibleplay.yml', tags: 'stop_container,delete_container'
-       // Above command used to run the playbook with specified tags mentioned in the tags section.	
-	 ansiblePlaybook credentialsId: 'ans-server', inventory: 'inventory', playbook: 'ansibleplay.yml'     
-        }
-      }	  	  
+  }
+     	  
   }
 }  
