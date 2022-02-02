@@ -63,7 +63,7 @@ pipeline {
 	
   stage('Build Docker Image'){
     steps{
-      sh 'docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
+      sh 'sudo docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
     }
   }	  	 
   stage('Docker Container'){
