@@ -63,12 +63,12 @@ pipeline {
 	
   stage('Build Docker Image'){
     steps{
-      sh 'sudo docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
+      sh 'sudo docker build -t sourav/jenkinsdeploy:${DOCKER_TAG} .'
     }
   }
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit dileep95/ansibledeploy:${DOCKER_TAG} '
+      sh 'sudo docker run -dit sourav/jenkinsdeploy:${DOCKER_TAG} '
     }
   }
      	  
