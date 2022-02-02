@@ -60,13 +60,7 @@ pipeline {
         }
       }	
     }	
-	stage('Quality_Gate') {
-	  steps {
-	    timeout(time: 3, unit: 'MINUTES') {
-		  waitForQualityGate abortPipeline: true
-        }
-      }
-    }
+	
   stage('Build Docker Image'){
     steps{
       sh 'docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
