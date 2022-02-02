@@ -68,7 +68,7 @@ pipeline {
   }
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit --name my_container sourav/jenkinsdeploy:${DOCKER_TAG} '
+      sh 'sudo docker run -dit  sourav/jenkinsdeploy:${DOCKER_TAG} '
     }
   }
 stage('Artifact'){
