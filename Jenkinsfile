@@ -66,7 +66,7 @@ pipeline {
       sh 'sudo docker build -t dileep95/ansibledeploy:${DOCKER_TAG} .'
     }
   }
-stage('Build Docker Image'){
+stage('Run Docker Container'){
     steps{
       sh 'sudo docker run -dit dileep95/ansibledeploy:${DOCKER_TAG} '
     }
