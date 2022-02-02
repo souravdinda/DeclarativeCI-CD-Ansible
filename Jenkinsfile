@@ -78,7 +78,7 @@ stage('Artifact'){
     url: 'http://54.173.117.85:8082/artifactory',
     // If you're using username and password:
     username: 'admin',
-    password: 'Password123',
+    password: 'Password@123',
     timeout: 300
 )
     }
