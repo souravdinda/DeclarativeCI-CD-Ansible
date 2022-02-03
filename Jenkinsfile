@@ -63,37 +63,26 @@ pipeline {
 	
   stage('Build Docker Image'){
     steps{
-      sh 'sudo docker build -t sourav/jenkinsdeploy:${DOCKER_TAG} .'
+      sh 'sudo docker build -t sourav/jenkinsdeploy:${env.BUILD_ID} .'
     }
   }
   stage('Tag Container'){
     steps{
-      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
+      sh 'sudo docker tag sourav/jenkinsdeploy:${env.BUILD_ID}  ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID}'
     }
   }
     stage('Push Container'){
     steps{
-      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
+      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID}'
     }
   }
  
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG} '
+      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID} '
     }
   }
-stage('Artifact'){
-    steps{
-      rtServer (
-    id: 'example-repo-local',
-    url: 'http://54.173.117.85:8082/artifactory',
-    // If you're using username and password:
-    username: 'admin',
-    password: 'Password@123',
-    timeout: 300
-)
-    }
-  }
+
      	  
   stage('test'){
       steps {
