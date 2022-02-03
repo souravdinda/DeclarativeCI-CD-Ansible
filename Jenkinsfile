@@ -63,31 +63,26 @@ pipeline {
 	
   stage('Build Docker Image'){
     steps{
-      sh 'sudo docker build -t sourav/jenkinsdeploy:${DOCKER_TAG} .'
+      sh 'sudo docker build -t sourav/jenkinsdeploy:${BUILD_NUMBER} .'
     }
   }
   stage('Tag Container'){
     steps{
-      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
+      sh 'sudo docker tag sourav/jenkinsdeploy:${BUILD_NUMBER}  ashu123.jfrog.io/ashu-ashurepo/myimages:${BUILD_NUMBER}'
     }
   }
     stage('Push Container'){
     steps{
-      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
+      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${BUILD_NUMBER}'
     }
   }
  
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG} '
+      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${BUILD_NUMBER} '
     }
   }
-stage('build no'){
-    steps{
-      sh 'echo ${BUILD_NUMBER}'
-    }
-  }
-     	  
+	  
   stage('test'){
       steps {
        //ansiblePlaybook credentialsId: 'ans-server', inventory: 'inventory', playbook: 'ansibleplay.yml', tags: 'stop_container,delete_container'
