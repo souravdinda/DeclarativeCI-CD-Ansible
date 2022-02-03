@@ -73,13 +73,13 @@ pipeline {
   }
     stage('Push Container'){
     steps{
-      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:v1'
+      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
     }
   }
  
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:v1 '
+      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG} '
     }
   }
 stage('Artifact'){
