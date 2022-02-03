@@ -66,6 +66,17 @@ pipeline {
       sh 'sudo docker build -t sourav/jenkinsdeploy:${DOCKER_TAG} .'
     }
   }
+  stage('Tag Container'){
+    steps{
+      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:v1'
+    }
+  }
+    stage('Push Container'){
+    steps{
+      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:v1'
+    }
+  }
+ 
 stage('Run Docker Container'){
     steps{
       sh 'sudo docker run -dit  sourav/jenkinsdeploy:${DOCKER_TAG} '
