@@ -68,7 +68,7 @@ pipeline {
   }
   stage('Tag Container'){
     steps{
-      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:v1'
+      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
     }
   }
     stage('Push Container'){
