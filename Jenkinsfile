@@ -79,7 +79,7 @@ pipeline {
  
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit  sourav/jenkinsdeploy:${DOCKER_TAG} '
+      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:v1 '
     }
   }
 stage('Artifact'){
