@@ -82,7 +82,11 @@ stage('Run Docker Container'){
       sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG} '
     }
   }
-
+stage('build no'){
+    steps{
+      sh 'echo ${BUILD_NUMBER}'
+    }
+  }
      	  
   stage('test'){
       steps {
