@@ -63,23 +63,23 @@ pipeline {
 	
   stage('Build Docker Image'){
     steps{
-      sh 'sudo docker build -t sourav/jenkinsdeploy:${env.BUILD_ID} .'
+      sh 'sudo docker build -t sourav/jenkinsdeploy:${DOCKER_TAG} .'
     }
   }
   stage('Tag Container'){
     steps{
-      sh 'sudo docker tag sourav/jenkinsdeploy:${env.BUILD_ID}  ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID}'
+      sh 'sudo docker tag sourav/jenkinsdeploy:${DOCKER_TAG}  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
     }
   }
     stage('Push Container'){
     steps{
-      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID}'
+      sh 'sudo docker push ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG}'
     }
   }
  
 stage('Run Docker Container'){
     steps{
-      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${env.BUILD_ID} '
+      sh 'sudo docker run -dit  ashu123.jfrog.io/ashu-ashurepo/myimages:${DOCKER_TAG} '
     }
   }
 
