@@ -36,13 +36,29 @@ pipeline {
         }
       } 
     }
-     stage('Artifacts') {
-    steps {     
-	rtServer (
-	    id: 'jfrog',
-	    timeout: 300
-	)
+    stage('Artifacts') {
+      steps {     
+		rtServer (
+		    id: 'jfrog',
+		    timeout: 300
+		)
             }
         }
+    stage('Artifacts upload') {
+      steps {     
+		rtUpload (
+    serverId: 'jfrog',
+    spec: '''{
+          "files": [
+            {
+              "pattern": "target/*.war",
+              "target": "example-repo-local/"
+            }
+         ]
+    }'''
+)
+            }
+        }
+   
   }
 }   
