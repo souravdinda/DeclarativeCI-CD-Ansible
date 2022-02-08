@@ -62,14 +62,14 @@ pipeline {
      stage('ecr push') {
       steps {     
 		sh 'aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 754733740943.dkr.ecr.us-east-1.amazonaws.com'
-	        sh 'sudo docker build -t myrepo .'
-	        sh 'sudo docker tag myrepo:latest 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
+	        sh 'sudo docker build -t myrepo:v${BUILD_NUMBER} .'
+	        sh 'sudo docker tag myrepo:v${BUILD_NUMBER} 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:v${BUILD_NUMBER}'
 	        sh 'sudo docker push 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
             }
         }
     stage('Deploying container in kubernet') {
       steps {     
-		sh 'sudo kubectl create deploy myweb --image 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
+		sh 'sudo kubectl create deploy myweb-v${BUILD_NUMBER} --image 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:v${BUILD_NUMBER}'
 
             }
         }
