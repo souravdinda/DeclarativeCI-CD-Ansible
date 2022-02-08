@@ -37,8 +37,8 @@ pipeline {
       } 
     }
      stage('Artifacts') {
-            steps {     
-                rtServer (
+    steps {     
+	rtServer (
 	    id: 'jfrog',
 	    timeout: 300
 	)
