@@ -1,9 +1,5 @@
 def mvn
 def buildInfo
-def DockerTag() {
-	def tag = sh script: 'git rev-parse HEAD', returnStdout:true
-	return tag
-	}
 pipeline {
   agent { label 'master' }
     tools {
