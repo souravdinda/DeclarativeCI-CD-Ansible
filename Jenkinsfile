@@ -35,6 +35,14 @@ pipeline {
       	  sh """${scannerHome}/bin/sonar-scanner"""
         }
       } 
-    }	    
+    }
+     stage('Artifacts') {
+            steps {     
+                rtServer (
+	    id: 'jfrog',
+	    timeout: 300
+	)
+            }
+        }
   }
 }   
