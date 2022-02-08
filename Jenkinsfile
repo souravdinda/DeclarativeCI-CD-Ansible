@@ -67,6 +67,12 @@ pipeline {
 	        sh 'sudo docker push 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
             }
         }
+    stage('Deploying container in kubernet') {
+      steps {     
+		sh 'kubectl create deploy myweb --image 754733740943.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
+
+            }
+        }
    
   }
 }   
