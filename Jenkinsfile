@@ -8,8 +8,7 @@ pipeline {
     }
 
   environment {
-    SONAR_HOME = "${tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
-    DOCKER_TAG = DockerTag()	  
+    SONAR_HOME = "${tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"	  
   }  
   stages {
     stage('Execute_Maven') {
