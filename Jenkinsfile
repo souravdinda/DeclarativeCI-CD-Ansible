@@ -2,10 +2,6 @@ def mvn
 def server = Artifactory.server 'artifactory'
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
-def DockerTag() {
-	def tag = sh script: 'git rev-parse HEAD', returnStdout:true
-	return tag
-	}
 pipeline {
   agent { label 'master' }
     tools {
@@ -21,22 +17,21 @@ pipeline {
 // artifactNumToKeepStr - Max # of builds to keep with artifacts	  
 }	
   environment {
-    SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
-    DOCKER_TAG = DockerTag()	  
+    SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"	  
   }  
   stages {
-    stage('Artifactory_Configuration') {
-      steps {
-// 	      sh 'mvn dependency:purge-local-repository'
-        script {
-		  rtMaven.tool = 'Maven'
-		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
-		  buildInfo = Artifactory.newBuildInfo()
-		  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot', server: server
-          buildInfo.env.capture = true
-        }			                      
-      }
-    }
+//     stage('Artifactory_Configuration') {
+//       steps {
+// // 	      sh 'mvn dependency:purge-local-repository'
+//         script {
+// 		  rtMaven.tool = 'Maven'
+// 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+// 		  buildInfo = Artifactory.newBuildInfo()
+// 		  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot', server: server
+//           buildInfo.env.capture = true
+//         }			                      
+//       }
+//     }
     stage('Execute_Maven') {
 	  steps {
 		  sh 'mvn clean install'
