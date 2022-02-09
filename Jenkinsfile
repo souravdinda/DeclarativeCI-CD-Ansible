@@ -20,18 +20,6 @@ pipeline {
     SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"	  
   }  
   stages {
-//     stage('Artifactory_Configuration') {
-//       steps {
-// // 	      sh 'mvn dependency:purge-local-repository'
-//         script {
-// 		  rtMaven.tool = 'Maven'
-// 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
-// 		  buildInfo = Artifactory.newBuildInfo()
-// 		  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot', server: server
-//           buildInfo.env.capture = true
-//         }			                      
-//       }
-//     }
     stage('Execute_Maven') {
 	  steps {
 		  sh 'mvn clean install'
